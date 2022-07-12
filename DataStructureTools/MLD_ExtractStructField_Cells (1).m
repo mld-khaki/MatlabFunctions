@@ -1,0 +1,13 @@
+function Array = MLD_ExtractStructField_Cells(myStruct,FieldName)
+for mCtr=1:length(myStruct)
+	if mCtr==1
+		Array = {};
+	end
+	if  isempty(myStruct(mCtr).(FieldName)) || ...
+			nansum(isnan(myStruct(mCtr).(FieldName)))>0
+		Array{mCtr} = '';
+	else
+		Array{mCtr} = myStruct(mCtr).(FieldName);
+	end
+end
+end
