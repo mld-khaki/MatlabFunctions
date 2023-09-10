@@ -4,11 +4,15 @@ InputTimeData(isnan(InputTimeData)) = [];
 dt = 1/SamplingFreq;                     % seconds per sample
 StopTime = 1;                  % seconds
 t = linspace(0,dt*length(InputTimeData),length(InputTimeData))';
-N = size(t,1);
+if nargin < 5
+    N = size(t,1);
+end
 %% Sine wave:
 Fc = 12;                       % hertz
 x = cos(2*pi*Fc*t);
 %% Fourier Transform:
+InputTimeData = interp1(linspace(0,1,length(InputTimeData)),InputTimeData,linspace(0,1,N));
+
 InputFreqData = fftshift(fft(InputTimeData));
 %% Frequency specifications:
 dF = SamplingFreq/N;                      % hertz
